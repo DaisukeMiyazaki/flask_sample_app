@@ -1,28 +1,40 @@
-*,
-*:before,
-*:after {
-  box-sizing: border-box;
+@charset "UTF-8";
+
+/* <meta name="description" content="${description}" />--> */
+/* <style media="screen"> */
+body{
+  text-align: center;
+  font-family: "Noto Sans JP";
 }
 
-html {
-  font-size: 13px;
+.question{
+  font-size:large;
+  font-weight:bold;
+  margin-top: 30px;
+  margin-left: 20px;
+  margin-bottom: 10px;
+  margin-right: 20px;
 }
 
-body {
-  font-family: Avenir, "Open Sans", "Helvetica Neue", Helvetica, Arial, Verdana, Roboto, "游ゴシック", "Yu Gothic", "游ゴシック体", "YuGothic", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "Meiryo UI", "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
-  color: #444;
-  background-color: hsl(0, 0%, 96%);
+input[type=radio] {
+  transform: scale(2);
+  margin: 0 6px 0 0;
+  background-color: greenyellow;
 }
+
+button[type=submit] {
+  margin-top: 30px;
+  margin-left: 20px;
+  margin-bottom: 10px;
+  margin-right: 20px;
+}
+
 
 h1 {
-  font-size: 1.8rem;
+  font-size:50px;
+  color:green;
+  background-color:whitesmoke;
 }
-
-
-.question {
-  color: red;
-  font-size: 150%;
+p {
+  font-weight:bold
 }
-
-/* TODO */
-/* insert your css */
