@@ -4,17 +4,41 @@ app = Flask(__name__, static_url_path='',
             static_folder='static',
             template_folder='templates')
 
+#htmlページをサーバーで取得する為
 @app.route('/', methods=['GET'])
 def process_GET_request():
     return render_template('page.html', title='personality', name="top page")
 
+#POSTリクエストがあった場合に処理する環境を整える
 @app.route('/', methods=['POST'])
 def process_POST_request():
     print("post request is received")
-    result_type = result_type(request)
+    # result_type = result_type(request)
+
+#POSTリクエストの中身を実際に処理して返す
+
+    def result_type2():
+        total = 0
+
+        for i in range(1,11):
+            answer = request.form.get('q{}'.format(i))
+            total += int(answer)
+        
+        if total >= 40:
+            personality_type = 'type A'
+        elif 30 <= total <40:
+            personality_type = 'type B'
+        elif 20 <= total <30:
+            personality_type = 'type C'
+        elif total >=0:
+            personality_type = 'type D'
+        return personality_type
+
+
 
     if request.method == 'POST':
-        return render_template('page.html', result_type = result_type)
+        personality_type = result_type2
+        return render_template('page.html', result_type = personality_type )
 
     # result_dictionary = {
     #     "first_question": 0,
@@ -22,23 +46,7 @@ def process_POST_request():
     #     "third_question": 2,
     # }
     # result_type = process_data(result_dictionary)
-   
-def result_type():
-    total = 0
-
-    for i in range(1,11):
-        answer = request.form.get('q{}'.format(i))
-        total += int(answer)
-    
-    if total >= 40:
-        personality_type = 'type A'
-    elif 30 <= total <40:
-        personality_type = 'type B'
-    elif 20 <= total <30:
-        personality_type = 'type C'
-    elif total >=0:
-        personality_type = 'type D'
-    
+       
         # selected_items = request.form.getlist('items')
         # print(selected_items)
         # # personality_type render_template('page.html',result_type=result_type)
