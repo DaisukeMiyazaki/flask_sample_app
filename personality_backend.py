@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 
 app = Flask(__name__, static_url_path='', 
             static_folder='static',
@@ -13,51 +13,42 @@ def process_GET_request():
 @app.route('/', methods=['POST'])
 def process_POST_request():
     print("post request is received")
-    # result_type = result_type(request)
+    apple = "banana"
+    result_type = get_personality_type(request,apple)
 
+    
 #POSTリクエストの中身を実際に処理して返す
-
-    def result_type2():
-        total = 0
-
-        for i in range(1,11):
-            answer = request.form.get('q{}'.format(i))
-            total += int(answer)
-        
-        if total >= 40:
-            personality_type = 'type A'
-        elif 30 <= total <40:
-            personality_type = 'type B'
-        elif 20 <= total <30:
-            personality_type = 'type C'
-        elif total >=0:
-            personality_type = 'type D'
-        return personality_type
-
-
+#redirect処理を4つのタイプ別に行いたい
+#return redirect("/landing", code=302)?
 
     if request.method == 'POST':
-        personality_type = result_type2
-        return render_template('page.html', result_type = personality_type )
+        # personality_type = result_type
+        print("Daisuke")
+        return render_template('page.html', result = result_type )
 
-    # result_dictionary = {
-    #     "first_question": 0,
-    #     "second_question": 1,
-    #     "third_question": 2,
-    # }
-    # result_type = process_data(result_dictionary)
-       
-        # selected_items = request.form.getlist('items')
-        # print(selected_items)
-        # # personality_type render_template('page.html',result_type=result_type)
 
-# def process_data(data):
-#     """
-#     parse the request data and personality_type the personality type
-#     """
-#     result_type = "温厚型"
-#     # TODO
-#     personality_type result_type 
+def get_personality_type(request,apple):
+    
+    """requestの内容を判断して、返す"""
+    print(apple) 
+    
+    total = 0
+
+    for i in range(1,11):
+        answer = request.form.get('q{}'.format(i))
+        print(answer)
+        if answer:
+            total += 4    
+    if total >= 40:
+        personality_type = 'type A'
+    elif 30 <= total <40:
+        personality_type = 'type B'
+    elif 20 <= total <30:
+        personality_type = 'type C'
+    elif total >=0:
+        personality_type = 'type D'
+    return personality_type
+
 
 if __name__ == "__main__":
     app.run(debug=True, port=4000, threaded=True)
