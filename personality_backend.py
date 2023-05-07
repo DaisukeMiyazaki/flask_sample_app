@@ -1,4 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for
+import code
+
+# 以下をデバッグしたいところに差し込む
+# code.interact(local=locals())
 
 app = Flask(__name__, static_url_path='', 
             static_folder='static',
@@ -35,10 +39,12 @@ def get_personality_type(request,apple):
     total = 0
 
     for i in range(1,11):
-        answer = request.form.get('q{}'.format(i))
+        answer = request.form.get('item{}'.format(i))
+        # code.interact(local=locals())
         print(answer)
         if answer:
-            total += 4    
+            total += int(answer)
+    print(total)
     if total >= 40:
         personality_type = 'type A'
     elif 30 <= total <40:
