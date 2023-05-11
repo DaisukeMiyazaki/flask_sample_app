@@ -8,22 +8,18 @@ app = Flask(__name__, static_url_path='',
             static_folder='static',
             template_folder='templates')
 
-#htmlページをサーバーで取得する為
+"""htmlページをサーバーで取得する為"""
 @app.route('/', methods=['GET'])
 def process_GET_request():
     return render_template('page.html', title='personality', name="top page")
 
-#POSTリクエストがあった場合に処理する環境を整える
+"""POSTリクエストがあった場合に処理する環境を整える"""
+"""POSTリクエストの中身を実際に処理して返す"""
 @app.route('/', methods=['POST'])
 def process_POST_request():
     print("post request is received")
     apple = "banana"
     result_type = get_personality_type(request,apple)
-
-    
-#POSTリクエストの中身を実際に処理して返す
-#redirect処理を4つのタイプ別に行いたい
-#return redirect("/landing", code=302)?
 
     if request.method == 'POST':
         # personality_type = result_type
