@@ -25,12 +25,16 @@ def process_POST_request():
     if request.method == 'POST':
         # personality_type = result_type
         print("Daisuke")
-        return render_template('page.html', result = result_type )
-
-
-
-
-
+        print(result_type)
+        print(type(result_type))
+        if result_type == 'type A':
+            return redirect(url_for("result_a"))
+        elif result_type == 'type B':
+            return redirect(url_for("result_b"))
+        elif result_type == 'type C':
+            return redirect(url_for("result_c"))
+        elif result_type == 'type D':
+            return redirect(url_for("result_d"))
 
 def get_personality_type(request,apple):
     
@@ -49,17 +53,13 @@ def get_personality_type(request,apple):
 
     if total >= 40:
         personality_type = 'type A'
-        return redirect(url_for("result_a"))
     elif 30 <= total <40:
         personality_type = 'type B'
-        return redirect(url_for("result_b"))
-    elif 20 <= total <30:
+    elif 20 <= total <30:   
         personality_type = 'type C'
-        return redirect(url_for("result_c"))
     elif total >=0:
         personality_type = 'type D'
-        return redirect(url_for("result_d"))
-
+    return personality_type
 
 @app.route('/result_a.html')
 def result_a():
