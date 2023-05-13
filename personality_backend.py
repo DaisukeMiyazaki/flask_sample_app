@@ -52,13 +52,14 @@ def get_personality_type(request,apple):
     print(total)
 
     if total >= 40:
-        personality_type = 'type A'
+        personality_type = "A"
     elif 30 <= total <40:
-        personality_type = 'type B'
+        personality_type = "B"
     elif 20 <= total <30:   
-        personality_type = 'type C'
+        personality_type = "C"
     elif total >=0:
-        personality_type = 'type D'
+        personality_type = "D"
+    personality_type = "type " + personality_type
     return personality_type
 
 @app.route('/result_a.html')
