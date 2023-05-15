@@ -13,11 +13,18 @@ body{
   height: 90px;
 }
 
+li {
+    list-style: none;
+    float: left;
+    padding: 30px 10px ;
+    color: #fff;
+}
 
 .header-logo img{
   float:left;
   width: 100px;
   length: 100px;
+  padding-left: 10px;
 }
 
 .question{
@@ -57,7 +64,6 @@ button[type=submit] {
   margin-right: 20px; */ */
   background-color:#dee7ec;
   color:#889eab;
-
 }
 
 .footer {
