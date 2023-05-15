@@ -1,34 +1,82 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
+import code
+
+# 以下をデバッグしたいところに差し込む
+# code.interact(local=locals())
 
 app = Flask(__name__, static_url_path='', 
             static_folder='static',
             template_folder='templates')
 
+"""htmlページをサーバーで取得する為"""
 @app.route('/', methods=['GET'])
 def process_GET_request():
     return render_template('page.html', title='personality', name="top page")
 
+"""POSTリクエストがあった場合に処理する環境を整える"""
+"""POSTリクエストの中身を実際に処理して返す"""
+
 @app.route('/', methods=['POST'])
 def process_POST_request():
     print("post request is received")
-    result_dictionary = {
-        "first_question": 0,
-        "second_question": 1,
-        "third_question": 2,
-    }
-    result_type = process_data(result_dictionary)
-    if request.method == 'POST':
-        selected_items = request.form.getlist('items')
-        print(selected_items)
-        return render_template('page.html',result_type=result_type)
+    apple = "banana"
+    result_type = get_personality_type(request,apple)
 
-def process_data(data):
-    """
-    parse the request data and return the personality type
-    """
-    result_type = "温厚型"
-    # TODO
-    return result_type 
+    if request.method == 'POST':
+        # personality_type = result_type
+        print("Daisuke")
+        print(result_type)
+        print(type(result_type))
+        if result_type == 'type A':
+            return redirect(url_for("result_a"))
+        elif result_type == 'type B':
+            return redirect(url_for("result_b"))
+        elif result_type == 'type C':
+            return redirect(url_for("result_c"))
+        elif result_type == 'type D':
+            return redirect(url_for("result_d"))
+
+def get_personality_type(request,apple):
+    
+    """requestの内容を判断して、返す"""
+    print(apple) 
+    
+    total = 0
+
+    for i in range(1,11):
+        answer = request.form.get('item{}'.format(i))
+        # code.interact(local=locals())
+        print(answer)
+        if answer:
+            total += int(answer)
+    print(total)
+
+    if total >= 40:
+        personality_type = "A"
+    elif 30 <= total <40:
+        personality_type = "B"
+    elif 20 <= total <30:   
+        personality_type = "C"
+    elif total >=0:
+        personality_type = "D"
+    personality_type = "type " + personality_type
+    return personality_type
+
+@app.route('/result_a.html')
+def result_a():
+    return render_template("result_a.html")
+
+@app.route('/result_b.html')
+def result_b():
+    return render_template("result_b.html")
+
+@app.route('/result_c.html')
+def result_c():
+    return render_template("result_c.html")
+
+@app.route('/result_d.html')
+def result_d():
+    return render_template("result_d.html")
 
 if __name__ == "__main__":
     app.run(debug=True, port=4000, threaded=True)
