@@ -1,8 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
 import code
 
-# 以下をデバッグしたいところに差し込む
-# code.interact(local=locals())
 
 app = Flask(__name__, static_url_path='', 
             static_folder='static',
@@ -36,31 +34,92 @@ def process_POST_request():
         elif result_type == 'type D':
             return redirect(url_for("result_d"))
 
-def get_personality_type(request,apple):
-    
-    """requestの内容を判断して、返す"""
-    print(apple) 
-    
-    total = 0
 
-    for i in range(1,11):
+# def get_group_list(request):
+#     group1 = ["1","4","8","10","13","17"]
+#     group2 = ["2","6","9","12","15","18"]
+#     group3 = ["3","5","7","11","14","16"]
+
+    # return my_list
+
+def get_personality_type(request,apple):
+    group1 = ["1","4","8","10","13","17"]
+    group2 = ["2","6","9","12","15","18"]
+    group3 = ["3","5","7","11","14","16"]
+
+    """group1(=タイプA),group2(=タイプB),group3(=タイプC)にはそれぞれHTMLのitem名に当たる数値を入れてリスト化
+    forinを連続することで、それぞれのタイプ別の質問Valueの合算をしている"""
+    print(apple) 
+
+    total = 0
+    for i in group1:
         answer = request.form.get('item{}'.format(i))
-        # code.interact(local=locals())
         print(answer)
         if answer:
             total += int(answer)
     print(total)
+    print("kanako")
 
-    if total >= 40:
+    total2 = 0
+    for i in group2:
+        answer = request.form.get('item{}'.format(i))
+        print(answer)
+        if answer:
+            total2 += int(answer)
+
+    print(total2)
+    print("kana")
+
+    total3 = 0
+    for i in group3:
+        answer = request.form.get('item{}'.format(i))
+        print(answer)
+        if answer:
+            total3 += int(answer)
+    print(total3)
+    print("ka")
+
+    # for i in range(1,11):
+    #     answer = request.form.get('item{}'.format(i))
+    #     # code.interact(local=locals())
+    #     print(answer)
+    #     if answer:
+    #         total += int(answer)
+    # print(total)
+    print(max(total,total2,total3))
+
+    """total=タイプA,total2=タイプB,total3=タイプC
+    -それぞれが最も高い数値の時は、それぞれのタイプを返す
+    -数値が同一になってしまった場合は、強いタイプを優先して返す
+    （タイプＡ＞タイプＣ＞タイプＢ）"""
+    if total >= total2 and total3:
         personality_type = "A"
-    elif 30 <= total <40:
+    elif total2 > total and total3:
         personality_type = "B"
-    elif 20 <= total <30:   
+    elif total3 > total and total2:
         personality_type = "C"
-    elif total >=0:
-        personality_type = "D"
+    elif total == total2 > total3 or total == total3 > total2:
+        personality_type = "A"
+    elif total2 == total3 >total:
+        personality_type = "C"
     personality_type = "type " + personality_type
     return personality_type
+
+
+    # if total >= 40:
+    #     personality_type = "A"
+    # elif 30 <= total <40:
+    #     personality_type = "B"
+    # elif 20 <= total <30:
+    #     personality_type = "C"
+    # elif total >=0:
+    #     personality_type = "D"
+    # personality_type = "type " + personality_type
+
+    # return personality_type
+
+
+
 
 @app.route('/result_a.html')
 def result_a():
@@ -80,3 +139,4 @@ def result_d():
 
 if __name__ == "__main__":
     app.run(debug=True, port=4000, threaded=True)
+    print("Flask server has started")
