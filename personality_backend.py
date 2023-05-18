@@ -9,10 +9,15 @@ app = Flask(__name__, static_url_path='',
 """htmlページをサーバーで取得する為"""
 @app.route('/', methods=['GET'])
 def process_GET_request():
-    return render_template('page.html', title='personality', name="top page")
+    return render_template('front.html', title='personality', name="top page")
 
 """POSTリクエストがあった場合に処理する環境を整える"""
 """POSTリクエストの中身を実際に処理して返す"""
+
+# @app.route('/page.html')
+# def page():
+#     return render_template("page.html")
+
 
 @app.route('/', methods=['POST'])
 def process_POST_request():
@@ -119,7 +124,9 @@ def get_personality_type(request,apple):
     # return personality_type
 
 
-
+@app.route('/page.html')
+def page():
+    return render_template("page.html")
 
 @app.route('/result_a.html')
 def result_a():
