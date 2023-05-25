@@ -40,28 +40,28 @@ def get_personality_type(request,apple):
     """group1(=タイプA)の合計を算出"""
     total = 0
     for i in group1:
-        answer = request.form.get('item{}'.format(i))
-        print(answer)
-        if answer:
-            total += int(answer)
+        point_str = request.form.get('item{}'.format(i))
+        print(point_str)
+        if point_str:
+            total += int(point_str)
     print(total)
 
     """group2(=タイプB)の合計を算出"""
     total2 = 0
     for i in group2:
-        answer = request.form.get('item{}'.format(i))
-        print(answer)
-        if answer:
-            total2 += int(answer)
+        point_str = request.form.get('item{}'.format(i))
+        print(point_str)
+        if point_str:
+            total2 += int(point_str)
     print(total2)
 
     """group3(=タイプC)の合計を算出"""
     total3 = 0
     for i in group3:
-        answer = request.form.get('item{}'.format(i))
-        print(answer)
-        if answer:
-            total3 += int(answer)
+        point_str = request.form.get('item{}'.format(i))
+        print(point_str)
+        if point_str:
+            total3 += int(point_str)
     print(total3)
 
     """
