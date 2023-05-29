@@ -1,1 +1,29 @@
+name: Deploy mylocal → github → PythonAnywhere (githubaction)
 
+on:
+    push:
+      branches:
+        - main
+    pull_request:
+      branches:
+        - main  
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: 3.10.9
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Deploy to PythonAnywhere SSH 経由のデプロイ
+        run: |
+          rsync -avz --exclude='.git/' ./ kanakong@ssh.pythonanywhere.com:/home/kanakong/flask_sample_app/
