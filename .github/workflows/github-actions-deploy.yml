@@ -25,5 +25,10 @@ jobs:
     #     run: pip install -r requirements.txt
 
       - name: Deploy to PythonAnywhere SSH 経由のデプロイ
+        env:
+            PRIVATE_KEY: ${{ secrets.pythonanywhere_PRIVATE_KEY }}
+            PUBLIC_KEY: ${{ secrets.pythonanywhere_PUBLIC_KEY }}
         run: |
           rsync -avz --exclude='.git/' ./ kanakong@ssh.pythonanywhere.com:/home/kanakong/flask_sample_app/
+
+
