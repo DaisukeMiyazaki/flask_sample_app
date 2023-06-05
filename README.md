@@ -8,3 +8,7 @@ $ pip install flask
 $ python personality_backend.py
 
 http://127.0.0.1:4000 を確認する
+
+
+# 以下をデバッグしたいところに差し込む
+# code.interact(local=locals())
